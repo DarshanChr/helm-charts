@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "fast-api-etl.fullname" . }}-test-connection"
+  labels:
+    {{- include "fast-api-etl.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "fast-api-etl.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
