@@ -163,6 +163,7 @@ affinity: {}
 
 postgresql:
   image:
+    repository: postgres
     tag: "16"
 
   auth:
@@ -170,12 +171,9 @@ postgresql:
     password: localdev123
     database: etldb
 
-  primary:
-    persistence:
-      enabled: true
-      size: 2Gi
-
   service:
-    type: ClusterIP
-    ports:
-      postgresql: 5432
+    port: 5432
+
+  persistence:
+    enabled: true
+    size: 2Gi
