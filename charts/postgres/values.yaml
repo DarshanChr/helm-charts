@@ -54,7 +54,7 @@ service:
   # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
   type: ClusterIP
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
-  port: 80
+  port: 5432
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
@@ -161,19 +161,17 @@ tolerations: []
 affinity: {}
 
 
-postgresql:
-  image:
-    repository: postgres
-    tag: "16"
+image:
+  repository: postgres
+  tag: "16"
+  pullPolicy: IfNotPresent
 
-  auth:
-    username: appuser
-    password: localdev123
-    database: etldb
+auth:
+  username: admin
+  password: admin
+  database: etldb
 
-  service:
-    port: 5432
 
-  persistence:
-    enabled: true
-    size: 2Gi
+persistence:
+  enabled: true
+  size: 2Gi
